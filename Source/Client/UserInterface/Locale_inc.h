@@ -1,2 +1,1 @@
-// Define:
-#define ENABLE_SEND_TARGET_INFO
+#define ENABLE_SEND_TARGET_INFO // Monsters information

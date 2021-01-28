@@ -5,7 +5,7 @@ void CPythonNonPlayer::GetMatchableMobList(int iLevel, int iInterval, TMobTableL
 #ifdef ENABLE_SEND_TARGET_INFO
 DWORD CPythonNonPlayer::GetMonsterMaxHP(DWORD dwVnum)
 {
-	const CPythonNonPlayer::TMobTable * c_pTable = GetTable(dwVnum);
+	const CPythonNonPlayer::TMobTable* c_pTable = GetTable(dwVnum);
 	if (!c_pTable)
 	{
 		DWORD dwMaxHP = 0;
@@ -17,7 +17,7 @@ DWORD CPythonNonPlayer::GetMonsterMaxHP(DWORD dwVnum)
 
 DWORD CPythonNonPlayer::GetMonsterRaceFlag(DWORD dwVnum)
 {
-	const CPythonNonPlayer::TMobTable * c_pTable = GetTable(dwVnum);
+	const CPythonNonPlayer::TMobTable* c_pTable = GetTable(dwVnum);
 	if (!c_pTable)
 	{
 		DWORD dwRaceFlag = 0;
@@ -29,7 +29,7 @@ DWORD CPythonNonPlayer::GetMonsterRaceFlag(DWORD dwVnum)
 
 DWORD CPythonNonPlayer::GetMonsterLevel(DWORD dwVnum)
 {
-	const CPythonNonPlayer::TMobTable * c_pTable = GetTable(dwVnum);
+	const CPythonNonPlayer::TMobTable* c_pTable = GetTable(dwVnum);
 	if (!c_pTable)
 	{
 		DWORD level = 0;
@@ -41,7 +41,7 @@ DWORD CPythonNonPlayer::GetMonsterLevel(DWORD dwVnum)
 
 DWORD CPythonNonPlayer::GetMonsterDamage1(DWORD dwVnum)
 {
-	const CPythonNonPlayer::TMobTable * c_pTable = GetTable(dwVnum);
+	const CPythonNonPlayer::TMobTable* c_pTable = GetTable(dwVnum);
 	if (!c_pTable)
 	{
 		DWORD range = 0;
@@ -53,7 +53,7 @@ DWORD CPythonNonPlayer::GetMonsterDamage1(DWORD dwVnum)
 
 DWORD CPythonNonPlayer::GetMonsterDamage2(DWORD dwVnum)
 {
-	const CPythonNonPlayer::TMobTable * c_pTable = GetTable(dwVnum);
+	const CPythonNonPlayer::TMobTable* c_pTable = GetTable(dwVnum);
 	if (!c_pTable)
 	{
 		DWORD range = 0;
@@ -65,7 +65,7 @@ DWORD CPythonNonPlayer::GetMonsterDamage2(DWORD dwVnum)
 
 DWORD CPythonNonPlayer::GetMonsterExp(DWORD dwVnum)
 {
-	const CPythonNonPlayer::TMobTable * c_pTable = GetTable(dwVnum);
+	const CPythonNonPlayer::TMobTable* c_pTable = GetTable(dwVnum);
 	if (!c_pTable)
 	{
 		DWORD dwExp = 0;
@@ -77,7 +77,7 @@ DWORD CPythonNonPlayer::GetMonsterExp(DWORD dwVnum)
 
 float CPythonNonPlayer::GetMonsterDamageMultiply(DWORD dwVnum)
 {
-	const CPythonNonPlayer::TMobTable * c_pTable = GetTable(dwVnum);
+	const CPythonNonPlayer::TMobTable* c_pTable = GetTable(dwVnum);
 	if (!c_pTable)
 	{
 		DWORD fDamMultiply = 0;
@@ -89,7 +89,7 @@ float CPythonNonPlayer::GetMonsterDamageMultiply(DWORD dwVnum)
 
 DWORD CPythonNonPlayer::GetMonsterST(DWORD dwVnum)
 {
-	const CPythonNonPlayer::TMobTable * c_pTable = GetTable(dwVnum);
+	const CPythonNonPlayer::TMobTable* c_pTable = GetTable(dwVnum);
 	if (!c_pTable)
 	{
 		DWORD bStr = 0;
@@ -101,7 +101,7 @@ DWORD CPythonNonPlayer::GetMonsterST(DWORD dwVnum)
 
 DWORD CPythonNonPlayer::GetMonsterDX(DWORD dwVnum)
 {
-	const CPythonNonPlayer::TMobTable * c_pTable = GetTable(dwVnum);
+	const CPythonNonPlayer::TMobTable* c_pTable = GetTable(dwVnum);
 	if (!c_pTable)
 	{
 		DWORD bDex = 0;
@@ -113,13 +113,58 @@ DWORD CPythonNonPlayer::GetMonsterDX(DWORD dwVnum)
 
 bool CPythonNonPlayer::IsMonsterStone(DWORD dwVnum)
 {
-	const CPythonNonPlayer::TMobTable * c_pTable = GetTable(dwVnum);
-	if (!c_pTable)
-	{
-		DWORD bType = 0;
-		return bType;
-	}
+	const CPythonNonPlayer::TMobTable* c_pTable = GetTable(dwVnum);
+	if (c_pTable && c_pTable->bType == 2)
+		return true;
 
-	return c_pTable->bType == 2;
+	return false;
+}
+
+BYTE CPythonNonPlayer::GetMonsterRegenCycle(DWORD dwVnum)
+{
+	const CPythonNonPlayer::TMobTable* c_pTable = GetTable(dwVnum);
+	if (!c_pTable)
+		return 0;
+
+	return c_pTable->bRegenCycle;
+}
+
+BYTE CPythonNonPlayer::GetMonsterRegenPercent(DWORD dwVnum)
+{
+	const CPythonNonPlayer::TMobTable* c_pTable = GetTable(dwVnum);
+	if (!c_pTable)
+		return 0;
+
+	return c_pTable->bRegenPercent;
+}
+
+DWORD CPythonNonPlayer::GetMonsterGoldMin(DWORD dwVnum)
+{
+	const CPythonNonPlayer::TMobTable* c_pTable = GetTable(dwVnum);
+	if (!c_pTable)
+		return 0;
+
+	return c_pTable->dwGoldMin;
+}
+
+DWORD CPythonNonPlayer::GetMonsterGoldMax(DWORD dwVnum)
+{
+	const CPythonNonPlayer::TMobTable* c_pTable = GetTable(dwVnum);
+	if (!c_pTable)
+		return 0;
+
+	return c_pTable->dwGoldMax;
+}
+
+DWORD CPythonNonPlayer::GetMonsterResist(DWORD dwVnum, BYTE bResistNum)
+{
+	const CPythonNonPlayer::TMobTable* c_pTable = GetTable(dwVnum);
+	if (!c_pTable)
+		return 0;
+
+	if (bResistNum >= MOB_RESISTS_MAX_NUM)
+		return 0;
+
+	return c_pTable->cResists[bResistNum];
 }
 #endif

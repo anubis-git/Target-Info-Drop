@@ -23,15 +23,15 @@ bool CPythonNetworkStream::RecvTargetInfoPacket()
 		return false;
 	}
 
-	CInstanceBase * pInstPlayer = CPythonCharacterManager::Instance().GetMainInstancePtr();
-	CInstanceBase * pInstTarget = CPythonCharacterManager::Instance().GetInstancePtr(pInfoTargetPacket.dwVID);
+	CInstanceBase* pInstPlayer = CPythonCharacterManager::Instance().GetMainInstancePtr();
+	CInstanceBase* pInstTarget = CPythonCharacterManager::Instance().GetInstancePtr(pInfoTargetPacket.dwVID);
 	if (pInstPlayer && pInstTarget)
 	{
 		if (!pInstTarget->IsDead())
 		{
 			if (pInstTarget->IsEnemy() || pInstTarget->IsStone())
 			{
-				PyCallClassMemberFunc(m_apoPhaseWnd[PHASE_WINDOW_GAME], "BINARY_AddTargetMonsterDropInfo", 
+				PyCallClassMemberFunc(m_apoPhaseWnd[PHASE_WINDOW_GAME], "BINARY_AddTargetMonsterDropInfo",
 				Py_BuildValue("(iii)", pInfoTargetPacket.race, pInfoTargetPacket.dwVnum, pInfoTargetPacket.count));
 				PyCallClassMemberFunc(m_apoPhaseWnd[PHASE_WINDOW_GAME], "BINARY_RefreshTargetMonsterDropInfo", Py_BuildValue("(i)", pInfoTargetPacket.race));
 			}
@@ -49,6 +49,7 @@ bool CPythonNetworkStream::RecvTargetInfoPacket()
 	return true;
 }
 #endif
+
 
 // Search for:
 bool CPythonNetworkStream::RecvObserverAddPacket()
